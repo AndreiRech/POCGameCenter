@@ -14,12 +14,17 @@ extension MatchManager: GKMatchDelegate {
         sendString("increment")
     }
     
+    func decrementCounter() {
+        counter -= 1
+        sendString("decrement")
+    }
+    
     func endGame() {
         inGame = false
         isGameOver = true
         sendString("gameOver")
     }
-
+    
     func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
         let content = String(decoding: data, as: UTF8.self)
         
@@ -46,6 +51,9 @@ extension MatchManager: GKMatchDelegate {
             
         case "increment":
             counter += 1
+            
+        case "decrement":
+            counter -= 1
             
         case "gameOver":
             inGame = false

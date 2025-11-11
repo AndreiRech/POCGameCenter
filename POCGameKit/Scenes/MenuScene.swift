@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreHaptics
 
 struct MenuScene: View {
     @State var matchManager: MatchManager
@@ -24,6 +25,7 @@ struct MenuScene: View {
             
             Button {
                 matchManager.startMatchmaking()
+                matchManager.complexSuccess()
             } label: {
                 Text("Play")
                     .foregroundStyle(Color(.secondarySystemBackground))
@@ -57,6 +59,9 @@ struct MenuScene: View {
             Color(.secondarySystemBackground)
         )
         .ignoresSafeArea()
+        .onAppear {
+            matchManager.prepareHaptics()
+        }
     }
 }
 

@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
+import Speech
 
 struct GameScene: View {
     @State var matchManager: MatchManager
+    @State private var speechManager = SpeechManager()
     
     var body: some View {
         ZStack {
             Color(.secondarySystemBackground)
                 .ignoresSafeArea()
+            
+            VolumeButtonHandler(matchManager: matchManager)
+                .frame(width: 0, height: 0)
             
             VStack {
                 Spacer()
@@ -50,6 +55,12 @@ struct GameScene: View {
                 
                 Spacer()
             }
+        }
+        .onAppear {
+            speechManager.startListening(matchManager: matchManager)
+        }
+        .onDisappear {
+            speechManager.stopListening()
         }
     }
 }
